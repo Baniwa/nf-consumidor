@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+wheels/
+*.egg-link
+.installed.cfg
+pip-self-check.json
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# MkDocs
+site/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# Alembic (migrations geradas localmente)
+alembic/versions/*.pyc
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Stylesheets duplicados na raiz (fonte canônica em docs/stylesheets/)
+/stylesheets/

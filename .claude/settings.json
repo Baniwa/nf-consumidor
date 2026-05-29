@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "if (-not (Get-NetTCPConnection -LocalPort 8000 -ErrorAction SilentlyContinue)) { Start-Process -FilePath 'mkdocs' -ArgumentList 'serve','--dev-addr=localhost:8000','--config-file','d:\\Projetos\\nf-consumidor\\mkdocs.yml' -WorkingDirectory 'd:\\Projetos\\nf-consumidor' -WindowStyle Hidden }",
+            "async": true,
+            "statusMessage": "Iniciando wiki NF Consumidor em localhost:8000..."
+          }
+        ]
+      }
+    ]
+  }
+}

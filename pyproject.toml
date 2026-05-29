@@ -1,0 +1,57 @@
+ini, TOML
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nf-consumidor"
+version = "0.1.0"
+dependencies = [
+  "fastapi>=0.110.0",
+  "sqlalchemy>=2.0.0",
+  "alembic>=1.13.0",
+  "pydantic>=2.0.0"
+]
+requires-python = ">=3.12"
+authors = [
+  {name = "Pradyun Gedam", email = "pradyun@example.com"},
+  {name = "Tzu-Ping Chung", email = "tzu-ping@example.com"},
+  {name = "Another person"},
+  {email = "different.person@example.com"},
+]
+maintainers = [
+  {name = "Brett Cannon", email = "brett@example.com"}
+]
+description = "API para processamento e gerenciamento de Notas Fiscais de Consumidor"
+readme = "README.md"
+license = { text = "MIT" }
+license-files = ["LICEN[CS]E.*"]
+keywords = ["fastapi", "sqlalchemy", "alembic", "pydantic", "nfc-e"]
+classifiers = [
+    "Programming Language :: Python :: 3.12", 
+    "Framework :: FastAPI",
+    "Topic :: Software Development :: Libraries :: Python Modules" 
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=5.0.0"
+]
+
+[project.urls]
+Homepage = "https://example.com"
+Documentation = "https://readthedocs.org"
+Repository = "https://github.com/me/spam.git"
+"Bug Tracker" = "https://github.com/me/spam/issues"
+Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
+
+[project.scripts]
+spam-cli = "spam:main_cli"
+
+[project.gui-scripts]
+spam-gui = "spam:main_gui"
+
+[project.entry-points."spam.magical"]
+tomatoes = "spam:main_tomatoes"
