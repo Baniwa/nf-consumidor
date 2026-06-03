@@ -21,15 +21,15 @@ class TestCNPJ:
         assert str(cnpj) == "11.222.333/0001-81"
 
     def test_cnpj_digito_invalido(self):
-        with pytest.raises(ValueError, math="Digitos verificadores incorretos"):
+        with pytest.raises(ValueError, match="Dígitos verificadores não conferem"):
             CNPJ("11.222.333/0001-00")
     
     def test_cnpj_sequencia_repetida(self):
-        with pytest.raises(ValueError, match="Sequência repetida dectada"):
+        with pytest.raises(ValueError, match="Sequência repetida detectada"):
             CNPJ("00000000000000")
     
     def test_cnpj_tamanho_errado(self):
-        with pytest.raises(ValueError, match="Deve conter exatamente 14 dígitos"):
+        with pytest.raises(ValueError, match="Deve conter 14 dígitos"):
             CNPJ("1234")
 
     def test_cnpj_imutavel(self):
@@ -38,8 +38,7 @@ class TestCNPJ:
             cnpj.valor = "outro"
 
 
-class TestValorMonetário:
-        
+class TestValorMonetario:
     def test_valor_aceita_decimal(self):
         vm = ValorMonetario(Decimal("10.50"))
         assert vm.valor == Decimal("10.50")
@@ -52,9 +51,9 @@ class TestValorMonetário:
         vm = ValorMonetario("10.50")
         assert vm.valor == Decimal("10.50")
 
-    def test_valor_negativo_reijeitado(self):
-        with pytest.raises(ValueError, match="Valor monetário não ser negativo"):
-            ValorMonetario(-1)
+    def test_valor_negativo_rejeitado(self):
+        with pytest.raises(ValueError, match="Valor monetário não pode ser negativo"):
+            ValorMonetario('-1')
 
     def test_valor_arrendondamento_half_up(self):
         vm = ValorMonetario("1.005")
@@ -66,7 +65,7 @@ class TestValorMonetário:
         resultado = v1 + v2
         assert resultado == ValorMonetario("15")
 
-    def test_valor_subtacao(self):
+    def test_valor_subtracao(self):
         v1 = ValorMonetario("10")
         v2 = ValorMonetario("3")
         resultado = v1 - v2
@@ -83,7 +82,6 @@ class TestValorMonetário:
 
 
 class TestAliquotaImposto:
-
     def test_aliquota_valida(self):
         aliquota = AliquotaImposto("18")
         assert aliquota.porcentagem == Decimal("18.0000")
@@ -112,4 +110,4 @@ class TestAliquotaImposto:
 
     def test_aliquota_srt_formato(self):
         aliquota = AliquotaImposto("18.5")
-        assert str(aliquota) == "18.50%"  
+        assert str(aliquota) == "18,50%"  
