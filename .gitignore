@@ -55,3 +55,5 @@ alembic/versions/*.pyc
 
 # Stylesheets duplicados na raiz (fonte canônica em docs/stylesheets/)
 /stylesheets/
+
+agents.md

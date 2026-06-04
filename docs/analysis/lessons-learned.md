@@ -154,6 +154,31 @@ O campo `tributacoes_extras JSONB` na entidade `Tributacao` serve como válvula 
 
 ---
 
+## LL-006 — Análise Estática Não Substitui Execução Real
+
+**Data de registro:** 2026-06-03 | **Fase:** Domínio — Testes
+
+**Contexto:**
+Durante revisão estática do `AliquotaImposto.__str__`, o format specifier `:<02` foi identificado como potencialmente incorreto. A previsão era que o teste `test_aliquota_srt_formato` falharia com `"18,5 %"` em vez de `"18,50%"`. Ao executar o pytest, o teste passou: o CPython 3.14 aplicou `0` como fill mesmo com alinhamento explícito `<`.
+
+**Decisão:**
+Corrigir o format specifier de `:<02` para `:0<2` — não por correção funcional (o teste já passava), mas por clareza de intenção. A forma `:0<2` (fill=`0`, align=`<`, width=`2`) declara explicitamente o que `:<02` atingia por comportamento de implementação.
+
+**Por que esta decisão foi não-óbvia:**
+O comportamento do CPython para o flag `0` combinado com alinhamento explícito `<` não está explicitamente documentado como garantia da especificação PEP 3101. Ele funcionou, mas por razão que não pode ser citada como contrato estável. A distinção entre "funciona" e "está correto por especificação" é especialmente relevante em código que precisa ser portável ou manutenível por terceiros.
+
+**Resultado real:**
+Após a correção, os 24 testes continuaram passando. A mudança foi puramente de legibilidade, sem impacto funcional.
+
+**Aplicação futura:**
+> Em f-strings, sempre use `fill` + `align` explícitos quando quiser preencher com um caractere específico: `f"{x:0<N}"` (fill=`0`, align left, width N). Nunca dependa de flags que interagem com alinhamento de forma não documentada.
+>
+> Mais amplamente: análise estática identifica *candidatos a problema*, não *certezas de falha*. A fonte de verdade é a execução real. O fluxo correto é sempre: **analisar → executar → observar → concluir**.
+
+**Referência:** Python docs — [Format Specification Mini-Language](https://docs.python.org/3/library/string.html#format-specification-mini-language). PEP 3101 — Advanced String Formatting.
+
+---
+
 ## Tabela de Status das Lições
 
 | ID | Título resumido | Status | Validado em produção? |
@@ -163,5 +188,6 @@ O campo `tributacoes_extras JSONB` na entidade `Tributacao` serve como válvula 
 | LL-003 | Sem mocks de banco em testes fiscais | Diretriz definida | Não |
 | LL-004 | ADRs antes do código | Aplicada (3 ADRs escritas) | Sim — este ciclo |
 | LL-005 | Extensibilidade para Reforma Tributária | Aplicada no design | Não |
+| LL-006 | Análise estática não substitui execução real | Aplicada — 2026-06-03 | Sim |
 
 > **Convenção:** À medida que cada lição é validada (ou refutada) em produção, esta tabela e os campos "Resultado" de cada entrada serão atualizados com o que realmente aconteceu.
