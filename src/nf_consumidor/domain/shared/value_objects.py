@@ -117,7 +117,7 @@ class AliquotaImposto:
         if '.' in string_formatada:
             partes = string_formatada.split('.')
             if len(partes[1]) < 2:
-                string_formatada = f"{partes[0]}.{partes[1]:<02}"
+                string_formatada = f"{partes[0]}.{partes[1]:0<2}"
         else:
             string_formatada += ".00"
             
