@@ -99,4 +99,5 @@ nav:
   - Devlog:
     - devlog/index.md
     - "2026-05-28 — Value Objects": devlog/2026-05-28-value-objects.md
+    - "2026-06-03 — Testes de Value Objects": devlog/2026-06-03-value-objects-tests.md
   - Referências Bibliográficas: references.md
