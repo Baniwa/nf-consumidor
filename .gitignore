@@ -50,10 +50,10 @@ Thumbs.db
 # Alembic (migrations geradas localmente)
 alembic/versions/*.pyc
 
-# Claude Code local settings
-.claude/settings.local.json
+# Claude Code
+.claude/
 
-# Stylesheets duplicados na raiz (fonte canônica em docs/stylesheets/)
+# Stylesheets duplicados na raiz (fonte canonica em docs/stylesheets/)
 /stylesheets/
 
 agents.md
